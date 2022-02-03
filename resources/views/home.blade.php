@@ -32,7 +32,7 @@
             </div>
         @empty
             <div class="col-12">
-                <div class="alert alert-warning">Nenhum evento encontrado neste site...</div>
+                <div class="alert alert-warning">Nenhum evento encontrado...</div>
             </div>
         @endforelse
         {{$events->links()}}

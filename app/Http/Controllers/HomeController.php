@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\Models\Event;
+use \App\Models\{Event, Category};
 
 class HomeController extends Controller
 {
     private $event;
+    private $category;
 
-    public function __construct(Event $event)
+    public function __construct(Event $event, Category $category)
     {
         $this->event = $event;
+        $this->category = $category;
     }
 
     public function index()
@@ -20,6 +22,10 @@ class HomeController extends Controller
 
         if($query = request()->query('title')){
             $events->where('title', 'LIKE', '%' . $query . '%');
+        }
+
+        if($query = request()->query('category')){
+            $events = $this->category->whereSlug($query)->first()->events();
         }
 
         $events = $events->paginate(10);

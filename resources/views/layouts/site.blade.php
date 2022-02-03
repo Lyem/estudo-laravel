@@ -24,10 +24,9 @@
 	            Categorias
 	          </a>
 	          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	            <li><a class="dropdown-item" href="#">Action</a></li>
-	            <li><a class="dropdown-item" href="#">Another action</a></li>
-	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="#">Something else here</a></li>
+	          	@foreach($categories as $category)
+	            	<li><a class="dropdown-item" href="{{route('index', ['category' => $category->slug])}}">{{$category->name}}</a></li>
+	            @endforeach
 	          </ul>
 	        </li>
 	      </ul>

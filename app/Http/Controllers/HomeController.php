@@ -28,6 +28,8 @@ class HomeController extends Controller
             $events = $this->category->whereSlug($query)->first()->events();
         }
 
+        $events->whereRaw('DATE(start_event) >= DATE(NOW())');
+
         $events = $events->paginate(10);
 
         return view('home', ['events'=> $events]);

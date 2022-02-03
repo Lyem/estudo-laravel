@@ -24,8 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('layouts.site', function($view){
-            $view->with('categories', \App\Models\Category::all(['name', 'slug']));
-        });
+        //
     }
 }

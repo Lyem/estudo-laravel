@@ -16,7 +16,14 @@ class HomeController extends Controller
 
     public function index()
     {
-        $events = $this->event->with('photos')->paginate(10);
+        $events = $this->event->with('photos');
+
+        if($query = request()->query('title')){
+            $events->where('title', 'LIKE', '%' . $query . '%');
+        }
+
+        $events = $events->paginate(10);
+
         return view('home', ['events'=> $events]);
     }
 

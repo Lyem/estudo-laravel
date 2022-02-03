@@ -32,7 +32,7 @@
 	        </li>
 	      </ul>
 	      <form class="d-flex">
-	        <input class="form-control me-2" type="search" placeholder="Pesquisa no site" aria-label="Search">
+	        <input class="form-control me-2" name="title" type="search" placeholder="Pesquisa no site" aria-label="Search" value="{{request()->query('title')}}">
 	        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
 	      </form>
 	    </div>

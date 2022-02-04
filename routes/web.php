@@ -19,7 +19,7 @@ Route::get('/evento/{slug}', [\App\Http\Controllers\HomeController::class, 'show
 
 Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function(){
 	Route::resource('events', \App\Http\Controllers\Admin\EventController::class)->except(['show']);
-	Route::resource('events.photos', \App\Http\Controllers\Admin\EventPhotoController::class);
+	Route::resource('events.photos', \App\Http\Controllers\Admin\EventPhotoController::class)->only(['index','store', 'destroy']);
 });
 
 Auth::routes();

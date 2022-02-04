@@ -9,7 +9,7 @@ class Photo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['Photo'];
+    protected $fillable = ['photo'];
 
     public function event()
     {

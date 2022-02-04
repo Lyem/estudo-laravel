@@ -4,17 +4,27 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use \App\Models\Event;
+use App\Http\Requests\PhotoRequest;
 
 class EventPhotoController extends Controller
 {
+    private $event;
+
+    public function __construct(Event $event)
+    {
+        $this->event = $event;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($event)
     {
-        //
+        $event = $this->event->find($event);
+        return view('admin.events.photos', compact('event'));
     }
 
     /**
@@ -33,9 +43,15 @@ class EventPhotoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PhotoRequest $request, $event)
     {
-        //
+        $uploadedPhotos = [];
+        foreach($request->file('photos') as $photo)
+        {
+            $uploadedPhotos[] = ['photo' => $photo->store('events/photos', 'public')];
+        }
+        $event = $this->event->find($event);
+        $event->photos()->createMany($uploadedPhotos);
     }
 
     /**

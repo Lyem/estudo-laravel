@@ -22,6 +22,7 @@
 							<td>{{$event->title}}</td>
 							<td>{{$event->created_at->format('d/m/Y H:i:s')}}</td>
 							<td class="d-flex">
+								<a href="{{route('admin.events.photos.index', $event->id)}}" class="btn btn-primary mx-1">Adicionar fotos</a>
 								<a href="{{route('admin.events.edit', $event->id)}}" class="btn btn-warning mx-1">Editar</a>
 								<form action="{{route('admin.events.destroy', $event->id)}}" method="post">
 									@csrf

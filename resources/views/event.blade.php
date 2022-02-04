@@ -35,7 +35,7 @@
 					  	<div class="row">
 					  		@foreach($event->photos as $photo)
 					  			<div class="col-3">
-					  				<img class="img-fluid pt-4" src="{{$photo->photo}}" alt="photo do evento {{$event->title}}">
+					  				<img class="img-fluid pt-4" src="{{asset('storage/' . $photo->photo)}}" alt="photo do evento {{$event->title}}">
 					  			</div>
 					  		@endforeach
 					  	</div>

@@ -14,8 +14,8 @@
         @forelse($events as $event)
             <div class="col-4">
                 <div class="card">
-                    @if(count($event->photos))
-                        <img src="{{$event->photos[0]->photo}}" class="card-img-top" alt="Imagem do evento" />
+                    @if($event->banner)
+                        <img src="{{asset('storage/' . $event->banner)}}" class="card-img-top" alt="Imagem do evento" />
                     @else
                         <img src="https://via.placeholder.com/640x480.png/2a2978?text=Sem%20imagem" class="card-img-top" alt="Imagem do evento" />
                     @endif

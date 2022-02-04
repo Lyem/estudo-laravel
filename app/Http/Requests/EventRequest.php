@@ -27,7 +27,8 @@ class EventRequest extends FormRequest
             'title' => 'required',
             'description' => 'required',
             'body' => 'required',
-            'start_event' => 'required'
+            'start_event' => 'required',
+            'banner' => 'image'
         ];
     }
 
@@ -37,7 +38,8 @@ class EventRequest extends FormRequest
             'title.required' => 'O campo Título Evento é obrigatorio',
             'description.required' => 'O campo Descrição Rápida Evento  é obrigatorio',
             'body.required' => 'O campo Fale mais Sobre o Evento é obrigatorio',
-            'start_event.required' => 'O campo Quando Vai Acontecer? é obrigatorio'
+            'start_event.required' => 'O campo Quando Vai Acontecer? é obrigatorio',
+            'banner.image' => 'O banner deve ser uma imagem'
         ];
     }
 }

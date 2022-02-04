@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use App\Http\Requests\EventRequest;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -32,6 +33,7 @@ class EventController extends Controller
     public function store(EventRequest $request)
     {
         $event = $request->all();
+        if($banner = $request->file('banner')) $event['banner'] = $banner->store('banner', 'public');
         $event['slug'] = Str::slug($event['title']);
         $event = $this->event->create($event);
         $event->owner()->associate(auth()->user());
@@ -48,7 +50,15 @@ class EventController extends Controller
     public function update($event, EventRequest $request)
     {
         $event = $this->event->findOrFail($event);
-        $event->update($request->all());
+        $eventData = $request->all();
+        if($banner = $request->file('banner')) 
+        {
+            if (Storage::disk('public')->exists($event->banner)) {
+                Storage::disk('public')->delete($event->banner);
+            }
+            $eventData['banner'] = $banner->store('banner', 'public');
+        }
+        $event->update($eventData);
         return redirect(route('admin.events.index'));
     }
 

@@ -14,7 +14,7 @@
 	@endif
 	<div class="row my-4">
 		<div class="col-12">
-			<form action="{{route('admin.events.store')}}" method="post">
+			<form action="{{route('admin.events.store')}}" method="post" enctype="multipart/form-data">
 				@csrf
 				<div class="form-group">
 					<label>Título Evento</label>
@@ -31,6 +31,10 @@
 				<div class="form-group">
 					<label>Quando Vai Acontecer?</label>
 					<input type="text" class="form-control @if($errors->has('start_event')) is-invalid @endif" name="start_event" value="{{old('start_event')}}">
+				</div>
+				<div class="form-group">
+					<label>Carregar um banner para o evento</label>
+					<input type="file" name="banner" class="form-control @if($errors->has('banner')) is-invalid @endif">
 				</div>
 				<button type="submit" class="btn btn-lg btn-success">Criar Evento</button>
 			</form>

@@ -26,8 +26,13 @@
 			@if($event->photos->count())
 			  	<div class="row">
 			  		@foreach($event->photos as $photo)
-			  			<div class="col-3">
-			  				<img class="img-fluid pt-4" src="{{asset('storage/' . $photo->photo)}}" alt="photo do evento {{$event->title}}">
+			  			<div class="col-4 mb4 text-center">
+			  				<img class="img-fluid mb-1" src="{{asset('storage/' . $photo->photo)}}" alt="photo do evento {{$event->title}}">
+			  				<form action="{{route('admin.events.photos.destroy', [$event ,$photo])}}" method="POST">
+			  					@csrf
+			  					@method('DELETE')
+			  					<button class="btn btn-danger">Remover foto</button>
+			  				</form>
 			  			</div>
 			  		@endforeach
 			  	</div>

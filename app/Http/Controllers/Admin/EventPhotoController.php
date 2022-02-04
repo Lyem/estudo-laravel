@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \App\Models\Event;
 use App\Http\Requests\PhotoRequest;
+use Illuminate\Support\Facades\Storage;
 
 class EventPhotoController extends Controller
 {
@@ -14,6 +15,7 @@ class EventPhotoController extends Controller
     public function __construct(Event $event)
     {
         $this->event = $event;
+        $this->middleware('user.has.event')->only('store', 'index','destroy');
     }
 
     /**
@@ -52,6 +54,7 @@ class EventPhotoController extends Controller
         }
         $event = $this->event->find($event);
         $event->photos()->createMany($uploadedPhotos);
+        return redirect()->back();
     }
 
     /**
@@ -94,8 +97,16 @@ class EventPhotoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($event, $photo)
     {
-        //
+        $event = $this->event->find($event);
+        $photo = $event->photos()->find($photo);
+        if(!$photo) return redirect('admin.events.index');
+        if(Storage::disk('public')->exists($photo->photo))
+        {
+            Storage::disk('public')->delete($photo->photo);
+        }
+        $photo->delete();
+        return redirect()->back();
     }
 }
